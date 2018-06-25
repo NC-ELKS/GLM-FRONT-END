@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Nav from "./Components/Nav";
+import Read from "./Components/Read";
 
 export default class App extends React.Component {
   render() {
@@ -8,6 +9,7 @@ export default class App extends React.Component {
       <View style={styles.container}>
         <Text>APP GOES HERE</Text>
         <Nav />
+        <Read />
       </View>
     );
   }
