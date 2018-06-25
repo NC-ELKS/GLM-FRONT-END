@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { View, Text, Button, StyleSheet } from "react-native";
 
 class Nav extends Component {
+  state = {
+    printText: false
+  };
   render() {
     return (
       <View style={styles.bottomView}>
