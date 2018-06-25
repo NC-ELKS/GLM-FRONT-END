@@ -10,20 +10,20 @@ class Nav extends Component {
             onPress={this.onPressLearnMore}
             title="MAP"
             color="whitesmoke"
-            accessibilityLabel="Learn more about this button"
+            accessibilityLabel="Open a map displaying your messages by location"
           />
           <Button
-            style={{ borderLeftColor: "white", borderLeftWidth: 2 }}
+            style={{ borderLeftColor: "white", borderLeftWidth: "2%" }}
             onPress={this.onPressLearnMore}
             title="READ"
             color="whitesmoke"
-            accessibilityLabel="Learn more about this button"
+            accessibilityLabel="Read your messages"
           />
           <Button
             onPress={this.onPressLearnMore}
             title="POST"
             color="whitesmoke"
-            accessibilityLabel="Learn more about this button"
+            accessibilityLabel="Post a message"
           />
         </View>
       </View>
