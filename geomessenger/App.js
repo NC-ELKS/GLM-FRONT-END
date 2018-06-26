@@ -1,25 +1,46 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import Nav from "./Components/Nav";
-import Read from "./Components/Read";
-import Post from "./Components/Post";
-import Friends from "./Components/Friends";
+import { StackNavigator } from "react-navigation";
 
-export default class App extends React.Component {
+class HomeScreen extends React.Component {
+  static navigationOptions = {
+    title: "Home"
+  };
   render() {
+    const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
-        <Nav />
-        <Friends />
-        {/* <Read />
-        <Post /> */}
+        <Text onPress={() => navigate("Friends")}>Navigate to Friendsssss</Text>
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
+class FriendsScreen extends React.Component {
+  static navigationOptions = {
+    title: "Friends"
+  };
+  render() {
+    const { navigate } = this.props.navigation;
+    return (
+      <View style={styles.container}>
+        <Text onPress={() => navigate("Home")}>Navigate to Home</Text>
+      </View>
+    );
   }
+}
+
+const NavigationApp = StackNavigator({
+  Home: { screen: HomeScreen },
+  Friends: { screen: FriendsScreen }
+});
+
+export default class App extends React.Component {
+  render() {
+    return <NavigationApp />;
+  }
+}
+
+const styles = StyleSheet.create({
+  container: {}
 });
