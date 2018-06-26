@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, Button, StyleSheet } from "react-native";
 
-const Read = () => {
+const ReadScreen = () => {
   return (
     <View style={styles.message}>
       <Text>Read message here</Text>
@@ -17,4 +17,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Read;
+export default ReadScreen;

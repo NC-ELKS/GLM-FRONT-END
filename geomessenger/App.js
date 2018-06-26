@@ -1,6 +1,10 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { StackNavigator } from "react-navigation";
+import { createStackNavigator } from "react-navigation";
+import FriendsScreen from "./Components/FriendsScreen";
+import ReadScreen from "./Components/ReadScreen";
+import PostScreen from "./Components/PostScreen";
+import { Icon } from "react-native-elements";
 
 class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -9,30 +13,41 @@ class HomeScreen extends React.Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
-      <View style={styles.container}>
-        <Text onPress={() => navigate("Friends")}>Navigate to Friendsssss</Text>
+      <View style={styles.bottomNav}>
+        <Icon
+          style={styles.navIcon}
+          onPress={() => navigate("Read")}
+          type="material-icons"
+          name="markunread"
+          color="whitesmoke"
+          accessibilityLabel="Read your messages"
+        />
+        <Icon
+          style={styles.navIcon}
+          onPress={() => navigate("Post")}
+          name="pencil"
+          type="entypo"
+          color="whitesmoke"
+          accessibilityLabel="Post a message"
+        />
+        <Icon
+          style={styles.navIcon}
+          onPress={() => navigate("Friends")}
+          name="users"
+          type="font-awesome"
+          color="whitesmoke"
+          accessibilityLabel="See your friends"
+        />
       </View>
     );
   }
 }
 
-class FriendsScreen extends React.Component {
-  static navigationOptions = {
-    title: "Friends"
-  };
-  render() {
-    const { navigate } = this.props.navigation;
-    return (
-      <View style={styles.container}>
-        <Text onPress={() => navigate("Home")}>Navigate to Home</Text>
-      </View>
-    );
-  }
-}
-
-const NavigationApp = StackNavigator({
+const NavigationApp = createStackNavigator({
   Home: { screen: HomeScreen },
-  Friends: { screen: FriendsScreen }
+  Friends: { screen: FriendsScreen },
+  Read: { screen: ReadScreen },
+  Post: { screen: PostScreen }
 });
 
 export default class App extends React.Component {
@@ -42,5 +57,14 @@ export default class App extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  container: {}
+  bottomNav: {
+    width: "100%",
+    height: 50,
+    backgroundColor: "purple",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    position: "absolute",
+    flexDirection: "row",
+    bottom: 0
+  }
 });
