@@ -8,8 +8,7 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        {/* <Text>APP GOES HERE</Text>
-        <Nav /> */}
+        <Nav />
         {/* <Read /> */}
         <Post />
       </View>
@@ -19,8 +18,6 @@ export default class App extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    padding: "5%",
-    backgroundColor: "lightgreen"
+    flex: 1
   }
 });

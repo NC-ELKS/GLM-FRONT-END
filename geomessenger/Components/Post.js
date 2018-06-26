@@ -7,41 +7,48 @@ import {
   TextInput,
   KeyboardAvoidingView
 } from "react-native";
-// import {
-//   responsiveHeight,
-//   responsiveWidth,
-//   responsiveFontSize
-// } from "react-native-responsive-dimensions";
+import Nav from "./Nav";
+import { Icon } from "react-native-elements";
 
 class Post extends React.Component {
   state = {
-    text: "Message Recipient",
-    message: "Enter your message here..."
+    text: "",
+    message: ""
   };
 
   render() {
     return (
       <KeyboardAvoidingView style={styles.postContainer} behavior="padding">
         <View style={styles.recipientContainer}>
-          <Text h1 style={styles.h1}>
+          {/* <Text h1 style={styles.h1}>
             New Message
-          </Text>
-          <Text style={styles.messageTo}>To:</Text>
+          </Text> */}
 
+          {/* change this to an icon and try and use flex to get it in the input */}
           <TextInput
             style={styles.textInput}
             onChangeText={text => this.setState({ text })}
             value={this.state.text}
+            placeholder="To: "
           />
-          <Button title="+" onPress={this.onPressLearnMore} />
+          <Icon
+            size={50}
+            style={styles.friendIcon}
+            name="plus"
+            type="evilicon"
+            onPress={this.onPressLearnMore}
+          />
         </View>
+        <View style={styles.center} />
         <View style={styles.messageContainer}>
           <TextInput
             style={styles.textInput}
             onChangeText={message => this.setState({ message })}
             value={this.state.message}
+            placeholder="Leave a message..."
           />
         </View>
+        <Nav />
       </KeyboardAvoidingView>
     );
   }
@@ -52,9 +59,24 @@ class Post extends React.Component {
 
 const styles = StyleSheet.create({
   postContainer: {
-    flex: 1,
-    flexDirection: "column",
     justifyContent: "space-between"
+  },
+  recipientContainer: {
+    height: "45%",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "purple",
+    flexDirection: "row"
+  },
+  center: {
+    height: "10%",
+    backgroundColor: "violet"
+  },
+  messageContainer: {
+    height: "45%",
+    alignItems: "center",
+    backgroundColor: "gray",
+    justifyContent: "center"
   },
   h1: {
     color: "black",
@@ -63,10 +85,13 @@ const styles = StyleSheet.create({
   },
   textInput: {
     padding: "5%",
+    width: "80%",
     borderColor: "black",
     borderWidth: 1,
-    borderRadius: 10
-  }
+    borderRadius: 10,
+    marginRight: "2%"
+  },
+  friendIcon: {}
 });
 
 export default Post;

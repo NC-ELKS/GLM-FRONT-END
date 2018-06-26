@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, Button, StyleSheet } from "react-native";
+import { Icon } from "react-native-elements";
+// native-elements work! yay
 
 class Nav extends Component {
   state = {
@@ -7,28 +9,32 @@ class Nav extends Component {
   };
   render() {
     return (
-      <View style={styles.bottomView}>
-        <View style={styles.navBar}>
-          <Button
-            onPress={this.onPressLearnMore}
-            title="MAP"
-            color="whitesmoke"
-            accessibilityLabel="Open a map displaying your messages by location"
-          />
-          <Button
-            style={{ borderLeftColor: "white", borderLeftWidth: "2%" }}
-            onPress={this.onPressLearnMore}
-            title="READ"
-            color="whitesmoke"
-            accessibilityLabel="Read your messages"
-          />
-          <Button
-            onPress={this.onPressLearnMore}
-            title="POST"
-            color="whitesmoke"
-            accessibilityLabel="Post a message"
-          />
-        </View>
+      <View style={styles.bottomNav}>
+        {/* somehow get these icons spaced... */}
+        <Icon
+          style={styles.navIcon}
+          onPress={this.onPressLearnMore}
+          name="map"
+          type="entypo"
+          color="whitesmoke"
+          accessibilityLabel="Open a map displaying your messages by location"
+        />
+        <Icon
+          style={styles.navIcon}
+          onPress={this.onPressLearnMore}
+          type="material-icons"
+          name="markunread"
+          color="whitesmoke"
+          accessibilityLabel="Read your messages"
+        />
+        <Icon
+          style={styles.navIcon}
+          onPress={this.onPressLearnMore}
+          name="pencil"
+          type="entypo"
+          color="whitesmoke"
+          accessibilityLabel="Post a message"
+        />
       </View>
     );
   }
@@ -39,7 +45,7 @@ class Nav extends Component {
 }
 
 const styles = StyleSheet.create({
-  bottomView: {
+  bottomNav: {
     width: "100%",
     height: 50,
     backgroundColor: "purple",
@@ -48,14 +54,6 @@ const styles = StyleSheet.create({
     position: "absolute",
     flexDirection: "row",
     bottom: 0
-  },
-
-  navBar: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    flex: 1,
-    paddingLeft: 20,
-    paddingRight: 20
   }
 });
 
