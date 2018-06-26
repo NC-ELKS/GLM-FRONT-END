@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Image } from "react-native";
 import { createStackNavigator } from "react-navigation";
 import FriendsScreen from "./Components/FriendsScreen";
 import ReadScreen from "./Components/ReadScreen";
@@ -13,31 +13,34 @@ class HomeScreen extends React.Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
-      <View style={styles.bottomNav}>
-        <Icon
-          style={styles.navIcon}
-          onPress={() => navigate("Read")}
-          type="material-icons"
-          name="markunread"
-          color="whitesmoke"
-          accessibilityLabel="Read your messages"
-        />
-        <Icon
-          style={styles.navIcon}
-          onPress={() => navigate("Post")}
-          name="pencil"
-          type="entypo"
-          color="whitesmoke"
-          accessibilityLabel="Post a message"
-        />
-        <Icon
-          style={styles.navIcon}
-          onPress={() => navigate("Friends")}
-          name="users"
-          type="font-awesome"
-          color="whitesmoke"
-          accessibilityLabel="See your friends"
-        />
+      <View>
+        <Image style={styles.image} source={require("./data/elk.png")} />
+        <View style={styles.bottomNav}>
+          <Icon
+            style={styles.navIcon}
+            onPress={() => navigate("Read")}
+            type="material-icons"
+            name="markunread"
+            color="whitesmoke"
+            accessibilityLabel="Read your messages"
+          />
+          <Icon
+            style={styles.navIcon}
+            onPress={() => navigate("Post")}
+            name="pencil"
+            type="entypo"
+            color="whitesmoke"
+            accessibilityLabel="Post a message"
+          />
+          <Icon
+            style={styles.navIcon}
+            onPress={() => navigate("Friends")}
+            name="users"
+            type="font-awesome"
+            color="whitesmoke"
+            accessibilityLabel="See your friends"
+          />
+        </View>
       </View>
     );
   }
@@ -66,5 +69,8 @@ const styles = StyleSheet.create({
     position: "absolute",
     flexDirection: "row",
     bottom: 0
+  },
+  image: {
+    height: "100%"
   }
 });
