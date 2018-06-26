@@ -6,13 +6,17 @@ import {
   KeyboardAvoidingView,
   TextInput
 } from "react-native";
-import Nav from "./Nav";
 import { Icon } from "react-native-elements";
-class Friends extends React.Component {
+
+class FriendsScreen extends React.Component {
+  static navigationOptions = {
+    title: "Friends"
+  };
   state = {
     text: ""
   };
   render() {
+    const { navigate } = this.props.navigation;
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.friendsContainer}>
         <View style={styles.top}>
@@ -35,7 +39,6 @@ class Friends extends React.Component {
             onPress={this.onPressLearnMore}
           />
         </View>
-        <Nav />
       </KeyboardAvoidingView>
     );
   }
@@ -74,10 +77,11 @@ const styles = StyleSheet.create({
   },
   bottom: {
     flexDirection: "row",
-    justifyContent: "center",
     alignItems: "center",
+    justifyContent: "center",
     height: "30%",
     backgroundColor: "lightblue"
   }
 });
-export default Friends;
+
+export default FriendsScreen;

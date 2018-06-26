@@ -7,10 +7,9 @@ import {
   TextInput,
   KeyboardAvoidingView
 } from "react-native";
-import Nav from "./Nav";
 import { Icon } from "react-native-elements";
 
-class Post extends React.Component {
+class PostScreen extends React.Component {
   state = {
     text: "",
     message: ""
@@ -48,7 +47,6 @@ class Post extends React.Component {
             placeholder="Leave a message..."
           />
         </View>
-        <Nav />
       </KeyboardAvoidingView>
     );
   }
@@ -94,4 +92,4 @@ const styles = StyleSheet.create({
   friendIcon: {}
 });
 
-export default Post;
+export default PostScreen;
