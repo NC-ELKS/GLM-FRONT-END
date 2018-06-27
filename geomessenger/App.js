@@ -6,10 +6,14 @@ import ReadScreen from "./Components/ReadScreen";
 import PostScreen from "./Components/PostScreen";
 import MapScreen from "./Components/MapScreen";
 import { Icon } from "react-native-elements";
+import * as api from "./api";
 
 class HomeScreen extends React.Component {
   static navigationOptions = {
     title: "Home"
+  };
+  state = {
+    messages: []
   };
   render() {
     const { navigate } = this.props.navigation;
@@ -53,6 +57,28 @@ class HomeScreen extends React.Component {
       </View>
     );
   }
+
+  componentDidMount = async () => {
+    console.log("mounting");
+    try {
+      const { Items } = await api.fetchMessages("LFreeman1");
+      console.log(Items, "messages");
+      this.setState({ messages: Items });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  componentDidUpdate = async prevProps => {
+    if (prevProps !== this.props) {
+      try {
+        const { messages } = await api.fetchMessages();
+        this.setState({ messages });
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
 }
 
 const NavigationApp = createStackNavigator({
@@ -60,7 +86,7 @@ const NavigationApp = createStackNavigator({
   Friends: { screen: FriendsScreen },
   Read: { screen: ReadScreen },
   Post: { screen: PostScreen },
-  Map: {screen: MapScreen}
+  Map: { screen: MapScreen }
 });
 
 export default class App extends React.Component {

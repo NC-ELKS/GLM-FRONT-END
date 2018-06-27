@@ -24,7 +24,8 @@ export default class App extends React.Component {
   watchID = 0;
 
   componentDidMount() {
-    navigator.geolocation.getCurrentPosition((position, {}) => {
+    navigator.geolocation.getCurrentPosition(
+      (position, {}) => {
         let lat = parseFloat(position.coords.latitude);
         let long = parseFloat(position.coords.longitude);
 
@@ -33,13 +34,13 @@ export default class App extends React.Component {
           longitude: long,
           latitudeDelta: LATITUDE_DELTA,
           longitudeDelta: LONGITUDE_DELTA
-        }
+        };
 
         this.setState({ initialPosition: initialRegion });
         this.setState({ markerPosition: initialRegion });
       },
-        (error) => alert(JSON.stringify(error)),
-        { enableHighAccuracy: true, timeout: 20000, maximumAge: 60000 }
+      error => alert(JSON.stringify(error)),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
     );
 
     this.watchID = navigator.geolocation.watchPosition(position => {
