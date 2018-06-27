@@ -8,10 +8,11 @@ import {
   KeyboardAvoidingView
 } from "react-native";
 import { Icon } from "react-native-elements";
+import * as api from "../api";
 
 class PostScreen extends React.Component {
   state = {
-    text: "",
+    recipient: "",
     message: ""
   };
 
@@ -19,15 +20,10 @@ class PostScreen extends React.Component {
     return (
       <KeyboardAvoidingView style={styles.postContainer} behavior="padding">
         <View style={styles.recipientContainer}>
-          {/* <Text h1 style={styles.h1}>
-            New Message
-          </Text> */}
-
-          {/* change this to an icon and try and use flex to get it in the input */}
           <TextInput
             style={styles.textInput}
-            onChangeText={text => this.setState({ text })}
-            value={this.state.text}
+            onChangeText={recipient => this.setState({ recipient })}
+            value={this.state.recipient}
             placeholder="To: "
           />
           <Icon
@@ -35,7 +31,7 @@ class PostScreen extends React.Component {
             style={styles.friendIcon}
             name="plus"
             type="evilicon"
-            onPress={this.onPressLearnMore}
+            onPress={this.chooseRecipient}
           />
         </View>
         <View style={styles.center} />
@@ -46,12 +42,34 @@ class PostScreen extends React.Component {
             value={this.state.message}
             placeholder="Leave a message..."
           />
+          <Icon
+            size={50}
+            style={styles.friendIcon}
+            name="plus"
+            type="evilicon"
+            onPress={this.submitMessage}
+          />
         </View>
       </KeyboardAvoidingView>
     );
   }
-  onPressLearnMore = () => {
-    return "";
+
+  submitMessage = async () => {
+    try {
+      const data = await api.postMessage(
+        this.state.message,
+        this.state.recipient,
+        "KKDavidson",
+        -2.238917,
+        53.486495
+      );
+      this.setState({
+        message: "",
+        recipient: ""
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 }
 
