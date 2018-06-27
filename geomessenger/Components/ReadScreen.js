@@ -1,10 +1,16 @@
 import React, { Component } from "react";
 import { View, Text, Button, StyleSheet } from "react-native";
 
-const ReadScreen = () => {
+const ReadScreen = props => {
+  const messages = props.navigation.state.params.messages;
   return (
     <View style={styles.message}>
-      <Text>Read message here</Text>
+      <Text>Read message here:</Text>
+      <View>
+        {messages.map(message => (
+          <Text key={message.messageid}>{message.content}</Text>
+        ))}
+      </View>
     </View>
   );
 };

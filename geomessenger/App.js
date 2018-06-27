@@ -23,7 +23,7 @@ class HomeScreen extends React.Component {
         <View style={styles.bottomNav}>
           <Icon
             style={styles.navIcon}
-            onPress={() => navigate("Read")}
+            onPress={() => navigate("Read", { messages: this.state.messages })}
             type="material-icons"
             name="markunread"
             color="whitesmoke"
@@ -62,7 +62,6 @@ class HomeScreen extends React.Component {
     console.log("mounting");
     try {
       const { Items } = await api.fetchMessages("LFreeman1");
-      console.log(Items, "messages");
       this.setState({ messages: Items });
     } catch (err) {
       console.log(err);
