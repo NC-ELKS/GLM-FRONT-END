@@ -4,6 +4,7 @@ import { createStackNavigator } from "react-navigation";
 import FriendsScreen from "./Components/FriendsScreen";
 import ReadScreen from "./Components/ReadScreen";
 import PostScreen from "./Components/PostScreen";
+import MapScreen from "./Components/MapScreen";
 import { Icon } from "react-native-elements";
 
 class HomeScreen extends React.Component {
@@ -40,6 +41,14 @@ class HomeScreen extends React.Component {
             color="whitesmoke"
             accessibilityLabel="See your friends"
           />
+          <Icon
+            style={styles.navIcon}
+            onPress={() => navigate("Map")}
+            name="map-marker"
+            type="font-awesome"
+            color="whitesmoke"
+            accessibilityLabel="Go to the map"
+          />
         </View>
       </View>
     );
@@ -50,7 +59,8 @@ const NavigationApp = createStackNavigator({
   Home: { screen: HomeScreen },
   Friends: { screen: FriendsScreen },
   Read: { screen: ReadScreen },
-  Post: { screen: PostScreen }
+  Post: { screen: PostScreen },
+  Map: {screen: MapScreen}
 });
 
 export default class App extends React.Component {
