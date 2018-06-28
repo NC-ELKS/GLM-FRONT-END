@@ -14,8 +14,7 @@ import ModalDropdown from "react-native-modal-dropdown";
 class PostScreen extends React.Component {
   state = {
     message: "",
-    recipient: "",
-    language: "English"
+    recipient: ""
   };
 
   render() {
