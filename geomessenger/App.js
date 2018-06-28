@@ -48,7 +48,7 @@ class HomeScreen extends React.Component {
           />
           <Icon
             style={styles.navIcon}
-            onPress={() => navigate("Map")}
+            onPress={() => navigate("Map", { messages: this.state.messages })}
             name="map-marker"
             type="font-awesome"
             color="whitesmoke"

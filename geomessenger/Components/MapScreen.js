@@ -1,6 +1,6 @@
 import React from "react";
-import { StyleSheet, Text, View, Dimensions } from "react-native";
-import MapView from "react-native-maps";
+import { StyleSheet, Text, View, Dimensions, Animated } from "react-native";
+import MapView, { AnimatedRegion } from "react-native-maps";
 
 const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
@@ -16,7 +16,7 @@ export default class App extends React.Component {
       latitudeDelta: 0,
       longitudeDelta: 0
     },
-    markerPosition: {
+    currentPosition: {
       latitude: 0,
       longitude: 0
     }
@@ -37,7 +37,7 @@ export default class App extends React.Component {
         };
 
         this.setState({ initialPosition: initialRegion });
-        this.setState({ markerPosition: initialRegion });
+        this.setState({ currentPosition: initialRegion });
       },
       error => alert(JSON.stringify(error)),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
@@ -54,7 +54,7 @@ export default class App extends React.Component {
         longitudeDelta: 0
       };
       this.setState({ initialPosition: lastRegion });
-      this.setState({ markerPosition: lastRegion });
+      this.setState({ currentPosition: lastRegion });
     });
   }
 
@@ -63,14 +63,31 @@ export default class App extends React.Component {
   }
 
   render() {
+    const messages = this.props.navigation.state.params.messages;
     return (
       <View style={styles.container}>
         <MapView style={styles.map} region={this.state.initialPosition}>
-          <MapView.Marker coordinate={this.state.markerPosition}>
+          <MapView.Marker coordinate={this.state.currentPosition}>
             <View style={styles.radius}>
               <View style={styles.marker} />
             </View>
           </MapView.Marker>
+
+          {messages.map((message, i) => {
+            const messageCoord = {
+              latitude: message.latitude,
+              longitude: message.longitude
+            };
+
+            return (
+              <MapView.Marker key={i} coordinate={messageCoord}>
+                <Animated.View style={styles.messageAnimation}>
+                  <Animated.View style={styles.ring} />
+                  <View style={styles.messageMarker} />
+                </Animated.View>
+              </MapView.Marker>
+            );
+          })}
         </MapView>
       </View>
     );
@@ -110,5 +127,26 @@ const styles = StyleSheet.create({
     borderRadius: 20 / 2,
     overflow: "hidden",
     backgroundColor: "#007AFF"
+  },
+  messageMarker: {
+    height: 8,
+    width: 8,
+    backgroundColor: "rgba(130,4,150, 0.3)",
+    borderRadius: 4
+  },
+
+  messageAnimation: {
+    alignItems: "center",
+    justifyContent: "center"
+  },
+
+  ring: {
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+    backgroundColor: "rgba(130,4,150, 0.3)",
+    position: "absolute",
+    borderWidth: 1,
+    borderColor: "rgba(130,4,150, 0.5)"
   }
 });
