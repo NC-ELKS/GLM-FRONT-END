@@ -47,21 +47,6 @@ class FriendsScreen extends React.Component {
       </KeyboardAvoidingView>
     );
   }
-
-  // componentDidMount() {
-  //   this.getUser();
-  // }
-
-  // getUser = async () => {
-  //   try {
-  //     const { friends } = await api.getUser("LFreeman1");
-  //     this.setState({
-  //       friends
-  //     });
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
 }
 
 const styles = StyleSheet.create({

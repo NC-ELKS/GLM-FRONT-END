@@ -9,31 +9,27 @@ import {
 } from "react-native";
 import { Icon } from "react-native-elements";
 import * as api from "../api";
+import ModalDropdown from "react-native-modal-dropdown";
 
 class PostScreen extends React.Component {
   state = {
+    message: "",
     recipient: "",
-    message: ""
+    language: "English"
   };
 
   render() {
+    console.log(this.state);
+    const friends = this.props.navigation.state.params.user.Items[0].friends;
     return (
       <KeyboardAvoidingView style={styles.postContainer} behavior="padding">
-        <View style={styles.recipientContainer}>
-          <TextInput
-            style={styles.textInput}
-            onChangeText={recipient => this.setState({ recipient })}
-            value={this.state.recipient}
-            placeholder="To: "
-          />
-          <Icon
-            size={50}
-            style={styles.friendIcon}
-            name="plus"
-            type="evilicon"
-            onPress={this.chooseRecipient}
-          />
-        </View>
+        <ModalDropdown
+          onSelect={(idx, recipient) => {
+            this.setState({ recipient });
+          }}
+          options={friends.map(friend => friend)}
+        />
+        <View style={styles.recipientContainer} />
         <View style={styles.center} />
         <View style={styles.messageContainer}>
           <TextInput
@@ -74,15 +70,19 @@ class PostScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  dropdown: {
+    height: 50,
+    width: 100
+  },
   postContainer: {
     justifyContent: "space-between"
   },
   recipientContainer: {
     height: "45%",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "purple",
-    flexDirection: "row"
+    // alignItems: "center",
+    // justifyContent: "center",
+    backgroundColor: "purple"
+    // flexDirection: "row"
   },
   center: {
     height: "10%",
