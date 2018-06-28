@@ -53,6 +53,7 @@ class PostScreen extends React.Component {
       .latitude;
     const longitude = this.props.navigation.state.params.currentPosition
       .longitude;
+      console.log('latitude:', latitude, 'longitude:', longitude)
     try {
       const data = await api.postMessage(
         this.state.message,
