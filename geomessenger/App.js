@@ -13,7 +13,8 @@ class HomeScreen extends React.Component {
     title: "Home"
   };
   state = {
-    messages: []
+    messages: [],
+    user: {}
   };
   render() {
     const { navigate } = this.props.navigation;
@@ -39,7 +40,7 @@ class HomeScreen extends React.Component {
           />
           <Icon
             style={styles.navIcon}
-            onPress={() => navigate("Friends")}
+            onPress={() => navigate("Friends", { user: this.state.user })}
             name="users"
             type="font-awesome"
             color="whitesmoke"
@@ -61,8 +62,9 @@ class HomeScreen extends React.Component {
   componentDidMount = async () => {
     console.log("mounting");
     try {
+      const user = await api.getUser("LFreeman1");
       const { Items } = await api.fetchMessages("LFreeman1");
-      this.setState({ messages: Items });
+      this.setState({ messages: Items, user });
     } catch (err) {
       console.log(err);
     }
@@ -76,6 +78,18 @@ class HomeScreen extends React.Component {
       } catch (err) {
         console.log(err);
       }
+    }
+  };
+
+  getUser = async () => {
+    try {
+      const { user } = await api.getUser("LFreeman1");
+
+      this.setState({
+        user
+      });
+    } catch (err) {
+      console.log(err);
     }
   };
 }
