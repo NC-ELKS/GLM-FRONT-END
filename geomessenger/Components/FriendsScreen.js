@@ -7,21 +7,26 @@ import {
   TextInput
 } from "react-native";
 import { Icon } from "react-native-elements";
+import * as api from "../api";
 
 class FriendsScreen extends React.Component {
   static navigationOptions = {
     title: "Friends"
   };
   state = {
-    text: ""
+    text: "",
+    friends: []
   };
   render() {
+    const friends = this.props.navigation.state.params.user.Items[0].friends;
     const { navigate } = this.props.navigation;
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.friendsContainer}>
         <View style={styles.top}>
           <Text h1>Friends</Text>
-          <View style={styles.listContainer} />
+          <View style={styles.listContainer}>
+            {friends.map((friend, i) => <Text key={i}>{friend}</Text>)}
+          </View>
         </View>
         <View style={styles.middle} />
         <View style={styles.bottom}>
@@ -42,6 +47,21 @@ class FriendsScreen extends React.Component {
       </KeyboardAvoidingView>
     );
   }
+
+  // componentDidMount() {
+  //   this.getUser();
+  // }
+
+  // getUser = async () => {
+  //   try {
+  //     const { friends } = await api.getUser("LFreeman1");
+  //     this.setState({
+  //       friends
+  //     });
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 }
 
 const styles = StyleSheet.create({

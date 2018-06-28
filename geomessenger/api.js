@@ -22,3 +22,9 @@ export const postMessage = async (
   });
   return data;
 };
+
+export const getUser = async username => {
+  const { data } = await axios.get(`${url}/users/${username}`);
+
+  return data;
+};
