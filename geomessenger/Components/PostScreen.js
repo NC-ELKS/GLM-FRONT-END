@@ -18,7 +18,6 @@ class PostScreen extends React.Component {
   };
 
   render() {
-    console.log(this.state);
     const friends = this.props.navigation.state.params.user.Items[0].friends;
     return (
       <KeyboardAvoidingView style={styles.postContainer} behavior="padding">
@@ -50,13 +49,17 @@ class PostScreen extends React.Component {
   }
 
   submitMessage = async () => {
+    const latitude = this.props.navigation.state.params.currentPosition
+      .latitude;
+    const longitude = this.props.navigation.state.params.currentPosition
+      .longitude;
     try {
       const data = await api.postMessage(
         this.state.message,
         this.state.recipient,
         "KKDavidson",
-        -2.238917,
-        53.486495
+        latitude,
+        longitude
       );
       this.setState({
         message: "",

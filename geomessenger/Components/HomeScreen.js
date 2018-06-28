@@ -48,7 +48,12 @@ class HomeScreen extends React.Component {
           />
           <Icon
             style={styles.navIcon}
-            onPress={() => navigate("Post", { user: this.state.user })}
+            onPress={() =>
+              navigate("Post", {
+                user: this.state.user,
+                currentPosition: this.state.currentPosition
+              })
+            }
             name="pencil"
             type="entypo"
             color="whitesmoke"
@@ -94,7 +99,6 @@ class HomeScreen extends React.Component {
           latitudeDelta: LATITUDE_DELTA,
           longitudeDelta: LONGITUDE_DELTA
         };
-        console.log(initialRegion);
         this.setState({ initialPosition: initialRegion });
         this.setState({ currentPosition: initialRegion });
       },
