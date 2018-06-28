@@ -6,7 +6,6 @@ export default class MapScreen extends React.Component {
   render() {
     const messages = this.props.navigation.state.params.messages;
     const initialPosition = this.props.navigation.state.params.initialPosition;
-    console.log(this.props.navigation.state.params.initialPosition);
     const currentPosition = this.props.navigation.state.params.currentPosition;
     return (
       <View style={styles.container}>
