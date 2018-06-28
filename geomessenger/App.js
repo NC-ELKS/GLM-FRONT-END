@@ -32,7 +32,7 @@ class HomeScreen extends React.Component {
           />
           <Icon
             style={styles.navIcon}
-            onPress={() => navigate("Post")}
+            onPress={() => navigate("Post", { user: this.state.user })}
             name="pencil"
             type="entypo"
             color="whitesmoke"
