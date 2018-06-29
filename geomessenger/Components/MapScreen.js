@@ -3,10 +3,65 @@ import { StyleSheet, Text, View, Dimensions, Animated } from "react-native";
 import MapView, { AnimatedRegion } from "react-native-maps";
 
 export default class MapScreen extends React.Component {
+  state = {
+    initialPosition: {
+      latitude: 0,
+      longitude: 0,
+      latitudeDelta: 0,
+      longitudeDelta: 0
+    },
+    currentPosition: { latitude: 0, longitude: 0 }
+  };
+
+  watchID = 0;
+
+  componentWillUnmount() {
+    navigator.geolocation.clearWatch(this.watchID);
+  }
+  componentDidMount = async () => {
+    console.log("mounting");
+    navigator.geolocation.getCurrentPosition(
+      (position, {}) => {
+        let lat = parseFloat(position.coords.latitude);
+        let long = parseFloat(position.coords.longitude);
+
+        let initialRegion = {
+          latitude: lat,
+          longitude: long,
+          latitudeDelta: LATITUDE_DELTA,
+          longitudeDelta: LONGITUDE_DELTA
+        };
+        this.setState({
+          initialPosition: initialRegion,
+          currentPosition: initialRegion
+        });
+      },
+
+      error => console.log(JSON.stringify(error)),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+    );
+
+    this.watchID = navigator.geolocation.watchPosition(position => {
+      let lat = parseFloat(position.coords.latitude);
+      let long = parseFloat(position.coords.longitude);
+
+      let lastRegion = {
+        latitude: lat,
+        longitude: long,
+        latitudeDelta: 0.092,
+        longitudeDelta: 0
+      };
+      this.setState({
+        initialPosition: lastRegion,
+        currentPosition: lastRegion
+      });
+    });
+  };
+
   render() {
     const messages = this.props.navigation.state.params.messages;
-    const initialPosition = this.props.navigation.state.params.initialPosition;
-    const currentPosition = this.props.navigation.state.params.currentPosition;
+    const initialPosition = this.state.initialPosition;
+    const currentPosition = this.state.currentPosition;
     return (
       <View style={styles.container}>
         <MapView style={styles.map} region={initialPosition}>

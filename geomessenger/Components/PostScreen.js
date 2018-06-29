@@ -27,12 +27,25 @@ class PostScreen extends React.Component {
     const friends = this.props.navigation.state.params.user.Items[0].friends;
     return (
       <KeyboardAvoidingView style={styles.postContainer} behavior="padding">
-        <ModalDropdown
-          onSelect={(idx, recipient) => {
-            this.setState({ recipient });
-          }}
-          options={friends.map(friend => friend)}
-        />
+        <View style={styles.dropdownContainer}>
+          <ModalDropdown
+            dropdownTextStyle={{ fontSize: 15, fontFamily: "Times New Roman" }}
+            dropdownTextHighlightStyle={{
+              color: "white",
+              backgroundColor: "purple"
+            }}
+            showsVerticalScrollIndicator={true}
+            style={{ padding: "1%", backgroundColor: "lightblue" }}
+            textStyle={{ fontSize: 15, fontFamily: "Times New Roman" }}
+            animated={true}
+            defaultValue={"Choose your friend..."}
+            onSelect={(idx, recipient) => {
+              this.setState({ recipient });
+            }}
+            options={friends.map(friend => friend)}
+          />
+        </View>
+
         <View style={styles.recipientContainer} />
         <View style={styles.center} />
         <View style={styles.messageContainer}>
@@ -67,7 +80,7 @@ class PostScreen extends React.Component {
       this.setState({ currentPosition: newPosition });
     });
     try {
-      const user = await api.getUser("Seth20");
+      const user = await api.getUser("KKDavidson");
       const { Items } = await api.fetchMessages("Seth20");
       this.setState({ messages: Items, user });
     } catch (err) {
@@ -100,19 +113,12 @@ class PostScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  dropdown: {
-    height: 50,
-    width: 100
-  },
   postContainer: {
     justifyContent: "space-between"
   },
   recipientContainer: {
     height: "45%",
-    // alignItems: "center",
-    // justifyContent: "center",
     backgroundColor: "purple"
-    // flexDirection: "row"
   },
   center: {
     height: "10%",
@@ -121,7 +127,7 @@ const styles = StyleSheet.create({
   messageContainer: {
     height: "45%",
     alignItems: "center",
-    backgroundColor: "gray",
+    backgroundColor: "white",
     justifyContent: "center"
   },
   h1: {
@@ -130,6 +136,8 @@ const styles = StyleSheet.create({
     textAlign: "center"
   },
   textInput: {
+    color: "white",
+    backgroundColor: "purple",
     padding: "5%",
     width: "80%",
     borderColor: "black",
