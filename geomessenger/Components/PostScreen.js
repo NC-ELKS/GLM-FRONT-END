@@ -5,7 +5,8 @@ import {
   Text,
   StyleSheet,
   TextInput,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  Image
 } from "react-native";
 import { Icon } from "react-native-elements";
 import * as api from "../api";
@@ -26,17 +27,25 @@ class PostScreen extends React.Component {
   render() {
     const friends = this.props.navigation.state.params.user.Items[0].friends;
     return (
-      <KeyboardAvoidingView style={styles.postContainer} behavior="padding">
+      <KeyboardAvoidingView
+        style={styles.postContainer}
+        behavior="padding"
+        keyboardShouldPersistTaps={"never"}
+      >
         <View style={styles.dropdownContainer}>
           <ModalDropdown
-            dropdownTextStyle={{ fontSize: 15, fontFamily: "Times New Roman" }}
-            dropdownTextHighlightStyle={{
-              color: "white",
-              backgroundColor: "purple"
-            }}
+            dropdownStyle={{ borderRadius: 10 }}
+            dropdownTextStyle={{ fontSize: 15 }}
             showsVerticalScrollIndicator={true}
-            style={{ padding: "1%", backgroundColor: "lightblue" }}
-            textStyle={{ fontSize: 15, fontFamily: "Times New Roman" }}
+            style={{
+              borderRadius: 10,
+              margin: "5%",
+              padding: "1%",
+              backgroundColor: "white",
+              height: "25%",
+              marginBottom: 30
+            }}
+            textStyle={{ fontSize: 15, fontFamily: "Thonburi" }}
             animated={true}
             defaultValue={"Choose your friend..."}
             onSelect={(idx, recipient) => {
@@ -45,11 +54,10 @@ class PostScreen extends React.Component {
             options={friends.map(friend => friend)}
           />
         </View>
-
-        <View style={styles.recipientContainer} />
-        <View style={styles.center} />
-        <View style={styles.messageContainer}>
+        <View style={styles.textInputContainer}>
           <TextInput
+            multiline={true}
+            maxLength={140}
             style={styles.textInput}
             onChangeText={message => this.setState({ message })}
             value={this.state.message}
@@ -57,12 +65,13 @@ class PostScreen extends React.Component {
           />
           <Icon
             size={50}
-            style={styles.friendIcon}
+            color="whitesmoke"
             name="plus"
             type="evilicon"
             onPress={this.submitMessage}
           />
         </View>
+        <Image style={styles.image} source={require("../data/elk.png")} />
       </KeyboardAvoidingView>
     );
   }
@@ -113,39 +122,40 @@ class PostScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  image: {
+    height: "20%",
+    width: "30%",
+    marginRight: "auto",
+    marginLeft: "auto"
+  },
   postContainer: {
-    justifyContent: "space-between"
+    flex: 1,
+    backgroundColor: "rgb(137, 87, 188)"
   },
-  recipientContainer: {
-    height: "45%",
-    backgroundColor: "purple"
-  },
-  center: {
-    height: "10%",
-    backgroundColor: "violet"
-  },
-  messageContainer: {
-    height: "45%",
+  textInputContainer: {
+    flex: 1,
     alignItems: "center",
-    backgroundColor: "white",
-    justifyContent: "center"
+    flexDirection: "column",
+    justifyContent: "flex-start"
   },
-  h1: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center"
+  dropdownContainer: {
+    marginBottom: 0,
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "flex-end"
   },
   textInput: {
-    color: "white",
-    backgroundColor: "purple",
-    padding: "5%",
+    color: "purple",
+    backgroundColor: "whitesmoke",
+    padding: "2%",
     width: "80%",
-    borderColor: "black",
+    height: 100,
+    fontSize: 20,
+    borderColor: "white",
     borderWidth: 1,
     borderRadius: 10,
-    marginRight: "2%"
-  },
-  friendIcon: {}
+    marginBottom: 10
+  }
 });
 
 export default PostScreen;

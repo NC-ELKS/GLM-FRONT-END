@@ -35,7 +35,7 @@ class HomeScreen extends React.Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
-      <View>
+      <View style={styles.homeContainer}>
         <Image style={styles.image} source={require("../data/elk.png")} />
         <View style={styles.bottomNav}>
           <Icon
@@ -119,10 +119,11 @@ class HomeScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  homeContainer: { backgroundColor: "whitesmoke" },
   bottomNav: {
     width: "100%",
     height: 50,
-    backgroundColor: "purple",
+    backgroundColor: "rgb(137, 87, 188)",
     justifyContent: "space-evenly",
     alignItems: "center",
     position: "absolute",
