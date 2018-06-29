@@ -14,8 +14,14 @@ import ModalDropdown from "react-native-modal-dropdown";
 class PostScreen extends React.Component {
   state = {
     message: "",
-    recipient: ""
+    recipient: "",
+    currentPosition: {
+      latitude: 0,
+      longitude: 0
+    }
   };
+
+  watchID = 0;
 
   render() {
     const friends = this.props.navigation.state.params.user.Items[0].friends;
@@ -47,13 +53,34 @@ class PostScreen extends React.Component {
       </KeyboardAvoidingView>
     );
   }
+  componentDidMount = async () => {
+    console.log("post mounting");
+
+    this.watchID = navigator.geolocation.getCurrentPosition(position => {
+      let lat = parseFloat(position.coords.latitude);
+      let long = parseFloat(position.coords.longitude);
+
+      let newPosition = {
+        latitude: lat,
+        longitude: long
+      };
+      this.setState({ currentPosition: newPosition });
+    });
+    try {
+      const user = await api.getUser("Seth20");
+      const { Items } = await api.fetchMessages("Seth20");
+      this.setState({ messages: Items, user });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  componentWillUnmount() {
+    navigator.geolocation.clearWatch(this.watchID);
+  }
 
   submitMessage = async () => {
-    const latitude = this.props.navigation.state.params.currentPosition
-      .latitude;
-    const longitude = this.props.navigation.state.params.currentPosition
-      .longitude;
-      console.log('latitude:', latitude, 'longitude:', longitude)
+    const latitude = this.state.currentPosition.latitude;
+    const longitude = this.state.currentPosition.longitude;
     try {
       const data = await api.postMessage(
         this.state.message,
@@ -98,7 +125,7 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   h1: {
-    color: "black",
+    color: "white",
     fontWeight: "bold",
     textAlign: "center"
   },

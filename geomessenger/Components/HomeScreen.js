@@ -50,8 +50,8 @@ class HomeScreen extends React.Component {
             style={styles.navIcon}
             onPress={() =>
               navigate("Post", {
-                user: this.state.user,
-                currentPosition: this.state.currentPosition
+                user: this.state.user
+                // currentPosition: this.state.currentPosition
               })
             }
             name="pencil"
@@ -120,8 +120,8 @@ class HomeScreen extends React.Component {
       this.setState({ currentPosition: lastRegion });
     });
     try {
-      const user = await api.getUser("LFreeman1");
-      const { Items } = await api.fetchMessages("LFreeman1");
+      const user = await api.getUser("Seth20");
+      const { Items } = await api.fetchMessages("Seth20");
       this.setState({ messages: Items, user });
     } catch (err) {
       console.log(err);
@@ -141,7 +141,7 @@ class HomeScreen extends React.Component {
 
   getUser = async () => {
     try {
-      const { user } = await api.getUser("LFreeman1");
+      const { user } = await api.getUser("Seth20");
 
       this.setState({
         user
