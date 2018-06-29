@@ -16,22 +16,8 @@ class HomeScreen extends React.Component {
   state = {
     messages: [],
     user: {}
-    // initialPosition: {
-    //   latitude: 0,
-    //   longitude: 0,
-    //   latitudeDelta: 0,
-    //   longitudeDelta: 0
-    // },
-    // currentPosition: {
-    //   latitude: 0,
-    //   longitude: 0
-    // }
   };
-  // watchID = 0;
 
-  // componentWillUnmount() {
-  //   navigator.geolocation.clearWatch(this.watchID);
-  // }
   render() {
     const { navigate } = this.props.navigation;
     return (
@@ -40,6 +26,7 @@ class HomeScreen extends React.Component {
         <View style={styles.bottomNav}>
           <Icon
             style={styles.navIcon}
+            size={48}
             onPress={() => navigate("Read", { messages: this.state.messages })}
             type="material-icons"
             name="markunread"
@@ -48,6 +35,7 @@ class HomeScreen extends React.Component {
           />
           <Icon
             style={styles.navIcon}
+            size={48}
             onPress={() =>
               navigate("Post", {
                 user: this.state.user
@@ -58,16 +46,17 @@ class HomeScreen extends React.Component {
             color="whitesmoke"
             accessibilityLabel="Post a message"
           />
-          <Icon
+          {/* <Icon
             style={styles.navIcon}
             onPress={() => navigate("Friends", { user: this.state.user })}
             name="users"
             type="font-awesome"
             color="whitesmoke"
             accessibilityLabel="See your friends"
-          />
+          /> */}
           <Icon
             style={styles.navIcon}
+            size={48}
             onPress={() =>
               navigate("Map", {
                 messages: this.state.messages
@@ -122,7 +111,7 @@ const styles = StyleSheet.create({
   homeContainer: { backgroundColor: "whitesmoke" },
   bottomNav: {
     width: "100%",
-    height: 50,
+    height: 100,
     backgroundColor: "rgb(137, 87, 188)",
     justifyContent: "space-evenly",
     alignItems: "center",
