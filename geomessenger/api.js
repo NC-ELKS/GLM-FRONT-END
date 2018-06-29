@@ -10,15 +10,15 @@ export const postMessage = async (
   content,
   recipient,
   msgPoster,
-  longitude,
-  latitude
+  latitude,
+  longitude
 ) => {
   const { data } = await axios.post(`${url}/messages`, {
     content: content,
     recipient: recipient,
     msgPoster: msgPoster,
-    longitude: -2.238917,
-    latitude: 53.486495
+    longitude: longitude,
+    latitude: latitude
   });
   return data;
 };
