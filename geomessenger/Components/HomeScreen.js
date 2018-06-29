@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Image, Dimensions } from "react-native";
 import { Icon } from "react-native-elements";
 import * as api from "../api";
 
-const LATITUDE_DELTA = 0.0922;
+const LATITUDE_DELTA = 0.00043;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 const { width, height } = Dimensions.get("window");
@@ -15,23 +15,23 @@ class HomeScreen extends React.Component {
   };
   state = {
     messages: [],
-    user: {},
-    initialPosition: {
-      latitude: 0,
-      longitude: 0,
-      latitudeDelta: 0,
-      longitudeDelta: 0
-    },
-    currentPosition: {
-      latitude: 0,
-      longitude: 0
-    }
+    user: {}
+    // initialPosition: {
+    //   latitude: 0,
+    //   longitude: 0,
+    //   latitudeDelta: 0,
+    //   longitudeDelta: 0
+    // },
+    // currentPosition: {
+    //   latitude: 0,
+    //   longitude: 0
+    // }
   };
-  watchID = 0;
+  // watchID = 0;
 
-  componentWillUnmount() {
-    navigator.geolocation.clearWatch(this.watchID);
-  }
+  // componentWillUnmount() {
+  //   navigator.geolocation.clearWatch(this.watchID);
+  // }
   render() {
     const { navigate } = this.props.navigation;
     return (
@@ -51,7 +51,6 @@ class HomeScreen extends React.Component {
             onPress={() =>
               navigate("Post", {
                 user: this.state.user
-                // currentPosition: this.state.currentPosition
               })
             }
             name="pencil"
@@ -71,9 +70,7 @@ class HomeScreen extends React.Component {
             style={styles.navIcon}
             onPress={() =>
               navigate("Map", {
-                messages: this.state.messages,
-                initialPosition: this.state.initialPosition,
-                currentPosition: this.state.currentPosition
+                messages: this.state.messages
               })
             }
             name="map-marker"
@@ -88,39 +85,8 @@ class HomeScreen extends React.Component {
 
   componentDidMount = async () => {
     console.log("mounting");
-    navigator.geolocation.getCurrentPosition(
-      (position, {}) => {
-        let lat = parseFloat(position.coords.latitude);
-        let long = parseFloat(position.coords.longitude);
-
-        let initialRegion = {
-          latitude: lat,
-          longitude: long,
-          latitudeDelta: LATITUDE_DELTA,
-          longitudeDelta: LONGITUDE_DELTA
-        };
-        this.setState({ initialPosition: initialRegion });
-        this.setState({ currentPosition: initialRegion });
-      },
-      error => console.log(JSON.stringify(error)),
-      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
-    );
-
-    this.watchID = navigator.geolocation.watchPosition(position => {
-      let lat = parseFloat(position.coords.latitude);
-      let long = parseFloat(position.coords.longitude);
-
-      let lastRegion = {
-        latitude: lat,
-        longitude: long,
-        latitudeDelta: 0.092,
-        longitudeDelta: 0
-      };
-      this.setState({ initialPosition: lastRegion });
-      this.setState({ currentPosition: lastRegion });
-    });
     try {
-      const user = await api.getUser("Seth20");
+      const user = await api.getUser("KKDavidson");
       const { Items } = await api.fetchMessages("Seth20");
       this.setState({ messages: Items, user });
     } catch (err) {
@@ -141,7 +107,7 @@ class HomeScreen extends React.Component {
 
   getUser = async () => {
     try {
-      const { user } = await api.getUser("Seth20");
+      const { user } = await api.getUser("KKDavidson");
 
       this.setState({
         user
@@ -164,7 +130,8 @@ const styles = StyleSheet.create({
     bottom: 0
   },
   image: {
-    height: "100%"
+    height: "100%",
+    width: "180%"
   }
 });
 
