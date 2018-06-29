@@ -7,8 +7,8 @@ export default class MapScreen extends React.Component {
     initialPosition: {
       latitude: 0,
       longitude: 0,
-      latitudeDelta: 0,
-      longitudeDelta: 0
+      latitudeDelta: 0.0043,
+      longitudeDelta: 0.0034
     },
     currentPosition: { latitude: 0, longitude: 0 }
   };
@@ -28,8 +28,8 @@ export default class MapScreen extends React.Component {
         let initialRegion = {
           latitude: lat,
           longitude: long,
-          latitudeDelta: LATITUDE_DELTA,
-          longitudeDelta: LONGITUDE_DELTA
+          latitudeDelta: 0.0043,
+          longitudeDelta: 0.0034
         };
         this.setState({
           initialPosition: initialRegion,
