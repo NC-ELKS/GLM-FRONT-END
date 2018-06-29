@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, Button, StyleSheet } from "react-native";
+import moment from "moment";
+import SpeechBubble from "react-native-speech-bubble";
 
 class ReadScreen extends Component {
   state = {
@@ -34,7 +36,8 @@ class ReadScreen extends Component {
 
       const messagesInRadius = messages.filter(message => {
         return (
-          measureDistance(lat, long, message.latitude, message.longitude) <= 25
+          measureDistance(lat, long, message.latitude, message.longitude) <=
+          50000000
         );
       });
 
@@ -49,23 +52,54 @@ class ReadScreen extends Component {
   render() {
     const { messagesInRadius } = this.state;
 
+    if (this.state.messagesInRadius.length === 0)
+      return <Text>Move closer to see your message!</Text>;
     return (
-      <View style={styles.message}>
-        <Text>Read message here:</Text>
-        <View>
-          {messagesInRadius.map(message => (
-            <Text key={message.messageid}>{message.content}</Text>
-          ))}
+      <View style={styles.messageContainer}>
+        <View style={styles.senderContainer}>
+          <Text style={styles.sender}>{messagesInRadius[0].msgPoster}</Text>
+        </View>
+        <View style={styles.sentenceContainer}>
+          <Text style={styles.sentence}>left a message for you</Text>
+        </View>
+        <View style={styles.bubbleContainer}>
+          <SpeechBubble
+            speeches={[messagesInRadius[0].content]}
+            hideIcons={true}
+          />
+        </View>
+        <View style={styles.dateContainer}>
+          {" "}
+          <Text>
+            {moment(messagesInRadius[0].timestamp).format(
+              "MMMM Do YYYY, h:mm a"
+            )}
+          </Text>
         </View>
       </View>
     );
   }
 }
 const styles = StyleSheet.create({
-  message: {
+  messageContainer: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center"
+    backgroundColor: "whitesmoke"
+  },
+  senderContainer: {
+    alignItems: "flex-start",
+    marginLeft: "10%"
+  },
+  sentenceContainer: {
+    alignItems: "flex-start",
+    marginLeft: "10%"
+  },
+  dateContainer: {
+    alignItems: "flex-end",
+    marginRight: "10%"
+  },
+  sender: {
+    fontSize: 25
   }
 });
 
