@@ -36,8 +36,7 @@ class ReadScreen extends Component {
 
       const messagesInRadius = messages.filter(message => {
         return (
-          measureDistance(lat, long, message.latitude, message.longitude) <=
-          50000000
+          measureDistance(lat, long, message.latitude, message.longitude) <= 25
         );
       });
 
