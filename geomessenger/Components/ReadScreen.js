@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
-import moment from "moment";
-import SpeechBubble from "react-native-speech-bubble";
+import React, { Component } from 'react';
+import { View, Text, Button, StyleSheet } from 'react-native';
+import SpeechBubble from 'react-native-speech-bubble';
+import dayjs from 'dayjs';
 
 class ReadScreen extends Component {
   state = {
@@ -11,7 +11,7 @@ class ReadScreen extends Component {
   watchID = 0;
 
   componentDidMount = async () => {
-    console.log("ReadScreen mounting");
+    console.log('ReadScreen mounting');
 
     this.watchID = navigator.geolocation.getCurrentPosition(position => {
       let lat = parseFloat(position.coords.latitude);
@@ -68,11 +68,9 @@ class ReadScreen extends Component {
           />
         </View>
         <View style={styles.dateContainer}>
-          {" "}
+          {' '}
           <Text>
-            {moment(messagesInRadius[0].timestamp).format(
-              "MMMM Do YYYY, h:mm a"
-            )}
+            {dayjs(messagesInRadius[0].timestamp).format('D MMM YYYY - h:m a')}
           </Text>
         </View>
       </View>
@@ -82,20 +80,20 @@ class ReadScreen extends Component {
 const styles = StyleSheet.create({
   messageContainer: {
     flex: 1,
-    justifyContent: "center",
-    backgroundColor: "whitesmoke"
+    justifyContent: 'center',
+    backgroundColor: 'whitesmoke'
   },
   senderContainer: {
-    alignItems: "flex-start",
-    marginLeft: "10%"
+    alignItems: 'flex-start',
+    marginLeft: '10%'
   },
   sentenceContainer: {
-    alignItems: "flex-start",
-    marginLeft: "10%"
+    alignItems: 'flex-start',
+    marginLeft: '10%'
   },
   dateContainer: {
-    alignItems: "flex-end",
-    marginRight: "10%"
+    alignItems: 'flex-end',
+    marginRight: '10%'
   },
   sender: {
     fontSize: 25
