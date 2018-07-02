@@ -73,7 +73,8 @@ class LoginScreen extends React.Component {
 
     try {
       await Auth.signIn(this.state.email, this.state.password);
-      alert("Logged in");
+      const { navigate } = this.props.navigation;
+      navigate("Home");
     } catch (e) {
       alert("Details incorrect - please try again");
     }
