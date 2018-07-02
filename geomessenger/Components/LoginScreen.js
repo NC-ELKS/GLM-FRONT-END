@@ -1,7 +1,7 @@
-import Login from 'react-native-simple-login'
+import Login from 'react-native-simple-login';
 
-const Login =() => {
-<Login />
-}
+const LoginScreen = () => {
+  <Login />;
+};
 
-export default Login;
+export default LoginScreen;
