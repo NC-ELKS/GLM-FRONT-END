@@ -28,6 +28,7 @@
     "react-native-elements": "^0.19.1",
     "react-native-maps": "^0.21.0",
     "react-native-modal-dropdown": "^0.6.2",
+    "react-native-simple-login": "^1.1.0",
     "react-native-speech-bubble": "^0.4.1",
     "react-navigation": "^2.5.3"
   }
