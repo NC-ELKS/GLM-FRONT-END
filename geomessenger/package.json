@@ -19,13 +19,16 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "aws-amplify": "^0.4.8",
     "axios": "^0.18.0",
+    "dayjs": "^1.7.0",
     "expo": "^27.0.1",
     "native-base": "^2.6.1",
     "react": "16.3.1",
     "react-devtools": "^3.2.3",
     "react-native": "~0.55.2",
     "react-native-elements": "^0.19.1",
+    "react-native-form-generator": "^0.9.9",
     "react-native-maps": "^0.21.0",
     "react-native-modal-dropdown": "^0.6.2",
     "react-native-simple-login": "^1.1.0",
