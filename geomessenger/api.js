@@ -28,3 +28,9 @@ export const getUser = async username => {
 
   return data;
 };
+
+export const confirmRead = async (recipient, messageId) => {
+  const { data } = await axios.put(`${url}/message/${recipient}/${messageId}`);
+  console.log(data);
+  return data;
+};
