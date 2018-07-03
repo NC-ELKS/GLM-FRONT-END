@@ -76,15 +76,25 @@ export default class MapScreen extends React.Component {
               latitude: message.latitude,
               longitude: message.longitude
             };
-
-            return (
-              <MapView.Marker key={i} coordinate={messageCoord}>
-                <Animated.View style={styles.messageAnimation}>
-                  <Animated.View style={styles.ring} />
-                  <View style={styles.messageMarker} />
-                </Animated.View>
-              </MapView.Marker>
-            );
+            if (message.read) {
+              return (
+                <MapView.Marker key={i} coordinate={messageCoord}>
+                  <Animated.View style={styles.messageAnimation}>
+                    <Animated.View style={styles.readRing} />
+                    <View style={styles.readMessageMarker} />
+                  </Animated.View>
+                </MapView.Marker>
+              );
+            } else {
+              return (
+                <MapView.Marker key={i} coordinate={messageCoord}>
+                  <Animated.View style={styles.messageAnimation}>
+                    <Animated.View style={styles.unreadRing} />
+                    <View style={styles.unreadMessageMarker} />
+                  </Animated.View>
+                </MapView.Marker>
+              );
+            }
           })}
         </MapView>
       </View>
@@ -126,10 +136,17 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     backgroundColor: "#007AFF"
   },
-  messageMarker: {
+  unreadMessageMarker: {
     height: 8,
     width: 8,
     backgroundColor: "rgba(130,4,150, 0.3)",
+    borderRadius: 4
+  },
+
+  readMessageMarker: {
+    height: 8,
+    width: 8,
+    backgroundColor: "rgba(255, 128, 0, 0.3)",
     borderRadius: 4
   },
 
@@ -138,7 +155,7 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
 
-  ring: {
+  unreadRing: {
     width: 24,
     height: 24,
     borderRadius: 12,
@@ -146,5 +163,15 @@ const styles = StyleSheet.create({
     position: "absolute",
     borderWidth: 1,
     borderColor: "rgba(130,4,150, 0.5)"
+  },
+
+  readRing: {
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+    backgroundColor: "rgba(255, 128, 0, 0.3)",
+    position: "absolute",
+    borderWidth: 1,
+    borderColor: "rgba(255, 128, 0, 0.5)"
   }
 });
