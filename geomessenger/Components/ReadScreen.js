@@ -1,15 +1,23 @@
 import React, { Component } from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, Button, StyleSheet,TouchableOpacity } from 'react-native';
 import SpeechBubble from 'react-native-speech-bubble';
 import dayjs from 'dayjs';
+import { Camera, Permissions, Expo } from "expo";
 
 class ReadScreen extends Component {
   state = {
-    messagesInRadius: []
+    messagesInRadius: [],
+    hasCameraPermission: null,
+    type: Camera.Constants.Type.back
   };
 
   watchID = 0;
-
+//new
+async componentWillMount() {
+  const { status } = await Permissions.askAsync(Permissions.CAMERA);
+  this.setState({ hasCameraPermission: status === "granted" });
+}
+//new
   componentDidMount = async () => {
     console.log('ReadScreen mounting');
 
@@ -50,33 +58,81 @@ class ReadScreen extends Component {
 
   render() {
     const { messagesInRadius } = this.state;
+    const { hasCameraPermission } = this.state;
+
 
     if (this.state.messagesInRadius.length === 0)
       return <Text>Move closer to see your message!</Text>;
-    return (
-      <View style={styles.messageContainer}>
-        <View style={styles.senderContainer}>
-          <Text style={styles.sender}>{messagesInRadius[0].msgPoster}</Text>
+
+    if (hasCameraPermission === null) {
+      return <View />;
+    } else if (hasCameraPermission === false) {
+      return <Text>No access to camera</Text>;
+    } else {
+      return (
+        <View style={{ flex: 1 }}>
+          {/* <View style={styles.messageContainer}>
+            <View style={styles.senderContainer}>
+            </View>
+            
+            <View style={styles.dateContainer}>
+             
+            </View>
+          </View> */}
+          <Camera style={{ flex: 1 }} type={this.state.type}>
+          <View style={styles.sentenceContainer}>
+          <Text style={styles.sender}>{this.state.messagesInRadius[0].msgPoster}</Text>
+
+              <Text style={styles.sentence}>left a message for you</Text>
+            </View>
+            <View style={styles.bubbleContainer}>
+              <SpeechBubble
+                speeches={[this.state.messagesInRadius[0].content]}
+                hideIcons={true}
+              />
+            </View>
+             <Text>
+                {dayjs(this.state.messagesInRadius[0].timestamp).format(
+                  "D MMM YYYY - h:m a"
+                )}
+              </Text>
+            <View
+              style={{
+                flex: 1,
+                backgroundColor: "transparent",
+                flexDirection: "row"
+              }}
+            >
+              <TouchableOpacity
+                style={{
+                  flex: 0.1,
+                  alignSelf: "flex-end",
+                  alignItems: "center"
+                }}
+                onPress={() => {
+                  this.setState({
+                    type:
+                      this.state.type === Camera.Constants.Type.back
+                        ? Camera.Constants.Type.front
+                        : Camera.Constants.Type.back
+                  });
+                }}
+              >
+                <Text
+                  style={{ fontSize: 18, marginBottom: 10, color: "white" }}
+                >
+                  {" "}
+                  Flip{" "}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </Camera>
         </View>
-        <View style={styles.sentenceContainer}>
-          <Text style={styles.sentence}>left a message for you</Text>
-        </View>
-        <View style={styles.bubbleContainer}>
-          <SpeechBubble
-            speeches={[messagesInRadius[0].content]}
-            hideIcons={true}
-          />
-        </View>
-        <View style={styles.dateContainer}>
-          {' '}
-          <Text>
-            {dayjs(messagesInRadius[0].timestamp).format('D MMM YYYY - h:m a')}
-          </Text>
-        </View>
-      </View>
-    );
+      );
+    }
   }
 }
+
 const styles = StyleSheet.create({
   messageContainer: {
     flex: 1,
