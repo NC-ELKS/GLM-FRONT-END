@@ -76,7 +76,7 @@ export default class MapScreen extends React.Component {
               latitude: message.latitude,
               longitude: message.longitude
             };
-            if (message.read) {
+            if (message.readstatus) {
               return (
                 <MapView.Marker key={i} coordinate={messageCoord}>
                   <Animated.View style={styles.messageAnimation}>

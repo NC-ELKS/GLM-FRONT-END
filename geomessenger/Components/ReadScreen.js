@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
-import { View, Text, Button, StyleSheet,TouchableOpacity } from 'react-native';
-import SpeechBubble from 'react-native-speech-bubble';
-import dayjs from 'dayjs';
+import React, { Component } from "react";
+import { View, Text, Button, StyleSheet, TouchableOpacity } from "react-native";
+import SpeechBubble from "react-native-speech-bubble";
+import dayjs from "dayjs";
 import { Camera, Permissions, Expo } from "expo";
+import * as api from "../api";
 
 class ReadScreen extends Component {
   state = {
@@ -12,14 +13,14 @@ class ReadScreen extends Component {
   };
 
   watchID = 0;
-//new
-async componentWillMount() {
-  const { status } = await Permissions.askAsync(Permissions.CAMERA);
-  this.setState({ hasCameraPermission: status === "granted" });
-}
-//new
+  //new
+  async componentWillMount() {
+    const { status } = await Permissions.askAsync(Permissions.CAMERA);
+    this.setState({ hasCameraPermission: status === "granted" });
+  }
+  //new
   componentDidMount = async () => {
-    console.log('ReadScreen mounting');
+    console.log("ReadScreen mounting");
 
     this.watchID = navigator.geolocation.getCurrentPosition(position => {
       let lat = parseFloat(position.coords.latitude);
@@ -60,7 +61,6 @@ async componentWillMount() {
     const { messagesInRadius } = this.state;
     const { hasCameraPermission } = this.state;
 
-
     if (this.state.messagesInRadius.length === 0)
       return <Text>Move closer to see your message!</Text>;
 
@@ -69,19 +69,23 @@ async componentWillMount() {
     } else if (hasCameraPermission === false) {
       return <Text>No access to camera</Text>;
     } else {
+      try {
+        console.log("MAKING API CALL");
+        api.confirmRead(
+          state.messagesInRadius[0].recipient,
+          state.messagesInRadius[0].messageid
+        );
+      } catch (err) {
+        console.log(err);
+      }
+
       return (
         <View style={{ flex: 1 }}>
-          {/* <View style={styles.messageContainer}>
-            <View style={styles.senderContainer}>
-            </View>
-            
-            <View style={styles.dateContainer}>
-             
-            </View>
-          </View> */}
           <Camera style={{ flex: 1 }} type={this.state.type}>
-          <View style={styles.sentenceContainer}>
-          <Text style={styles.sender}>{this.state.messagesInRadius[0].msgPoster}</Text>
+            <View style={styles.sentenceContainer}>
+              <Text style={styles.sender}>
+                {this.state.messagesInRadius[0].msgPoster}
+              </Text>
 
               <Text style={styles.sentence}>left a message for you</Text>
             </View>
@@ -91,11 +95,11 @@ async componentWillMount() {
                 hideIcons={true}
               />
             </View>
-             <Text>
-                {dayjs(this.state.messagesInRadius[0].timestamp).format(
-                  "D MMM YYYY - h:m a"
-                )}
-              </Text>
+            <Text>
+              {dayjs(this.state.messagesInRadius[0].timestamp).format(
+                "D MMM YYYY - h:m a"
+              )}
+            </Text>
             <View
               style={{
                 flex: 1,
@@ -136,20 +140,20 @@ async componentWillMount() {
 const styles = StyleSheet.create({
   messageContainer: {
     flex: 1,
-    justifyContent: 'center',
-    backgroundColor: 'whitesmoke'
+    justifyContent: "center",
+    backgroundColor: "whitesmoke"
   },
   senderContainer: {
-    alignItems: 'flex-start',
-    marginLeft: '10%'
+    alignItems: "flex-start",
+    marginLeft: "10%"
   },
   sentenceContainer: {
-    alignItems: 'flex-start',
-    marginLeft: '10%'
+    alignItems: "flex-start",
+    marginLeft: "10%"
   },
   dateContainer: {
-    alignItems: 'flex-end',
-    marginRight: '10%'
+    alignItems: "flex-end",
+    marginRight: "10%"
   },
   sender: {
     fontSize: 25
