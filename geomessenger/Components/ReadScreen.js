@@ -70,10 +70,9 @@ class ReadScreen extends Component {
       return <Text>No access to camera</Text>;
     } else {
       try {
-        console.log("MAKING API CALL");
         api.confirmRead(
-          state.messagesInRadius[0].recipient,
-          state.messagesInRadius[0].messageid
+          messagesInRadius[0].recipient,
+          messagesInRadius[0].messageid
         );
       } catch (err) {
         console.log(err);
