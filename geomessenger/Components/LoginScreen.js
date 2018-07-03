@@ -1,19 +1,20 @@
 import React from "react";
 import Amplify, { Auth } from "aws-amplify";
 import configAWS from "../configAWS";
+import { StyleSheet } from "react-native";
 import {
-  Button,
-  View,
+  Body,
+  Title,
   Text,
-  StyleSheet,
-  TextInput,
-  KeyboardAvoidingView,
-  Image
-} from "react-native";
-
-import { Icon } from "react-native-elements";
-import * as api from "../api";
-import ModalDropdown from "react-native-modal-dropdown";
+  Button,
+  Container,
+  Header,
+  Content,
+  Form,
+  Item,
+  Input,
+  Label
+} from "native-base";
 
 class LoginScreen extends React.Component {
   state = {
@@ -34,37 +35,50 @@ class LoginScreen extends React.Component {
   }
   render() {
     return (
-      <KeyboardAvoidingView
-        style={styles.postContainer}
-        behavior="padding"
-        keyboardShouldPersistTaps={"never"}
-      >
-        <View style={styles.dropdownContainer} />
-        <View style={styles.textInputContainer}>
-          <Icon
-            size={50}
-            color="whitesmoke"
-            name="plus"
-            type="evilicon"
-            onPress={this.handleSubmit}
-          />
-          <TextInput
-            maxLength={140}
-            style={styles.textInput}
-            onChangeText={email => this.setState({ email })}
-            value={this.state.email}
-            placeholder="EMAIL"
-          />
-          <TextInput
-            maxLength={140}
-            style={styles.textInput}
-            onChangeText={password => this.setState({ password })}
-            value={this.state.password}
-            placeholder="PASSWORD"
-          />
-        </View>
-        <Image style={styles.image} source={require("../data/elk.png")} />
-      </KeyboardAvoidingView>
+      <Container>
+        <Header span>
+          <Body style={{ alignItems: "center" }}>
+            <Title>Login</Title>
+          </Body>
+        </Header>
+        <Content>
+          <Form style={{ paddingBottom: "10%" }}>
+            <Item floatingLabel>
+              <Label>Email</Label>
+              <Input
+                keyboardType="email-address"
+                onChangeText={email =>
+                  this.setState({
+                    email
+                  })
+                }
+                value={this.state.email}
+              />
+            </Item>
+            <Item floatingLabel>
+              <Label>Password</Label>
+              <Input
+                secureTextEntry={true}
+                onChangeText={password =>
+                  this.setState({
+                    password
+                  })
+                }
+                value={this.state.password}
+              />
+            </Item>
+          </Form>
+          <Container style={{ paddingRight: "10%", paddingLeft: "10%" }}>
+            <Button
+              block
+              style={{ backgroundColor: "purple" }}
+              onPress={this.handleSubmit}
+            >
+              <Text>Sign in</Text>
+            </Button>
+          </Container>
+        </Content>
+      </Container>
     );
   }
 
@@ -81,41 +95,6 @@ class LoginScreen extends React.Component {
   };
 }
 
-const styles = StyleSheet.create({
-  image: {
-    height: "20%",
-    width: "30%",
-    marginRight: "auto",
-    marginLeft: "auto"
-  },
-  postContainer: {
-    flex: 1,
-    backgroundColor: "rgb(137, 87, 188)"
-  },
-  textInputContainer: {
-    flex: 1,
-    alignItems: "center",
-    flexDirection: "column",
-    justifyContent: "flex-start"
-  },
-  dropdownContainer: {
-    marginBottom: 0,
-    flex: 1,
-    flexDirection: "column",
-    justifyContent: "flex-end"
-  },
-  textInput: {
-    color: "purple",
-    backgroundColor: "whitesmoke",
-    padding: "2%",
-    width: "80%",
-    height: 100,
-    fontSize: 20,
-    borderColor: "white",
-    borderWidth: 1,
-    borderRadius: 10,
-    marginBottom: 10
-  }
-});
+const styles = StyleSheet.create({});
 
 export default LoginScreen;
