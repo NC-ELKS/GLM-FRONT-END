@@ -45,7 +45,7 @@ class PostScreen extends React.Component {
               height: "25%",
               marginBottom: 30
             }}
-            textStyle={{ fontSize: 15, fontFamily: "Thonburi" }}
+            textStyle={{ fontSize: 15, fontFamily: "Times New Roman" }}
             animated={true}
             defaultValue={"Choose your friend..."}
             onSelect={(idx, recipient) => {
