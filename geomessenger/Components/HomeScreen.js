@@ -46,14 +46,7 @@ class HomeScreen extends React.Component {
             color="whitesmoke"
             accessibilityLabel="Post a message"
           />
-          {/* <Icon
-            style={styles.navIcon}
-            onPress={() => navigate("Friends", { user: this.state.user })}
-            name="users"
-            type="font-awesome"
-            color="whitesmoke"
-            accessibilityLabel="See your friends"
-          /> */}
+
           <Icon
             style={styles.navIcon}
             size={48}
