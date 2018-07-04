@@ -1,10 +1,9 @@
 import React from "react";
-import { StyleSheet, Text, View, Image, Dimensions } from "react-native";
+import { Image, Dimensions } from "react-native";
 
 import * as api from "../api";
 import {
   Container,
-  Header,
   Content,
   Footer,
   FooterTab,
@@ -30,13 +29,23 @@ class HomeScreen extends React.Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
-      <Container style={{ flex: 1 }}>
-        <Content />
+      <Container
+        style={{
+          flex: 1,
+          alignItems: "center",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "whitesmoke"
+        }}
+      >
+        <Content>
+          <Image source={require("../data/footprints(1).png")} />
+        </Content>
         <Footer>
           <FooterTab>
             <Button>
               <Icon
-                style={{ color: "purple" }}
+                style={{ color: "rgb(137, 87, 188)" }}
                 onPress={() =>
                   navigate("Read", { messages: this.state.messages })
                 }
@@ -47,7 +56,7 @@ class HomeScreen extends React.Component {
             </Button>
             <Button>
               <Icon
-                style={{ color: "purple" }}
+                style={{ color: "rgb(137, 87, 188)" }}
                 onPress={() =>
                   navigate("Post", {
                     user: this.state.user
@@ -60,7 +69,7 @@ class HomeScreen extends React.Component {
             </Button>
             <Button>
               <Icon
-                style={{ color: "purple" }}
+                style={{ color: "rgb(137, 87, 188)" }}
                 onPress={() =>
                   navigate("Map", {
                     messages: this.state.messages
@@ -111,23 +120,5 @@ class HomeScreen extends React.Component {
     }
   };
 }
-
-const styles = StyleSheet.create({
-  homeContainer: { backgroundColor: "whitesmoke" },
-  bottomNav: {
-    width: "100%",
-    height: 100,
-    backgroundColor: "rgb(137, 87, 188)",
-    justifyContent: "space-evenly",
-    alignItems: "center",
-    position: "absolute",
-    flexDirection: "row",
-    bottom: 0
-  },
-  image: {
-    height: "100%",
-    width: "180%"
-  }
-});
 
 export default HomeScreen;

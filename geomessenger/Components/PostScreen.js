@@ -1,9 +1,9 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import * as api from "../api";
-import { TextInput } from "react-native";
-
 import {
+  Text,
+  Button,
   Label,
   Input,
   Container,
@@ -39,8 +39,8 @@ class PostScreen extends React.Component {
           </Body>
         </Header>
         <Content>
-          {/* <Form> */}
-          {/* <Item picker />
+          <Form>
+            <Item picker />
             <Picker
               mode="dropdown"
               style={{ width: undefined }}
@@ -55,69 +55,27 @@ class PostScreen extends React.Component {
               {friends.map((friend, i) => {
                 return <Picker.Item label={friend} value={friend} key={i} />;
               })}
-            </Picker> */}
-          {/* </Form> */}
+            </Picker>
+          </Form>
           <Item floatingLabel>
             <Label>Enter your message here!</Label>
             <InputGroup borderType="regular">
               <Input
-                multiline={true}
-                maxLength={140}
-                style={styles.textInput}
                 onChangeText={message => this.setState({ message })}
-                value={this.state.message}
                 value={this.state.message}
               />
             </InputGroup>
           </Item>
+          <Button
+            block
+            style={{ backgroundColor: "rgb(137, 87, 188)" }}
+            onPress={this.submitMessage}
+          >
+            <Text>Send!</Text>
+          </Button>
         </Content>
       </Container>
     );
-    // <KeyboardAvoidingView
-    //   style={styles.postContainer}
-    //   behavior="padding"
-    //   keyboardShouldPersistTaps={"never"}
-    // >
-    //   <View style={styles.dropdownContainer}>
-    //     <ModalDropdown
-    //       dropdownStyle={{ borderRadius: 10 }}
-    //       dropdownTextStyle={{ fontSize: 15 }}
-    //       showsVerticalScrollIndicator={true}
-    //       style={{
-    //         borderRadius: 10,
-    //         margin: "5%",
-    //         padding: "1%",
-    //         backgroundColor: "white",
-    //         height: "25%",
-    //         marginBottom: 30
-    //       }}
-    //       textStyle={{ fontSize: 15, fontFamily: "Thonburi" }}
-    //       animated={true}
-    //       defaultValue={"Choose your friend..."}
-    //       onSelect={(idx, recipient) => {
-    //         this.setState({ recipient });
-    //       }}
-    //       options={friends.map(friend => friend)}
-    //     />
-    //   </View>
-    //   <View style={styles.textInputContainer}>
-    // <Input
-    //   multiline={true}
-    //   maxLength={140}
-    //   style={styles.textInput}
-    //   onChangeText={message => this.setState({ message })}
-    //   value={this.state.message}
-    // />
-    //     <Icon
-    //       size={50}
-    //       color="whitesmoke"
-    //       name="plus"
-    //       type="evilicon"
-    //       onPress={this.submitMessage}
-    //     />
-    //   </View>
-    //   <Image style={styles.image} source={require("../data/elk.png")} />
-    // </KeyboardAvoidingView>
   }
   componentDidMount = async () => {
     console.log("post mounting");
@@ -164,30 +122,29 @@ class PostScreen extends React.Component {
     }
   };
 }
-
 const styles = StyleSheet.create({
-  // image: {
-  //   height: "20%",
-  //   width: "30%",
-  //   marginRight: "auto",
-  //   marginLeft: "auto"
-  // },
-  // postContainer: {
-  //   flex: 1,
-  //   backgroundColor: "rgb(137, 87, 188)"
-  // },
-  // textInputContainer: {
-  //   flex: 1,
-  //   alignItems: "center",
-  //   flexDirection: "column",
-  //   justifyContent: "flex-start"
-  // },
-  // dropdownContainer: {
-  //   marginBottom: 0,
-  //   flex: 1,
-  //   flexDirection: "column",
-  //   justifyContent: "flex-end"
-  // },
+  image: {
+    height: "20%",
+    width: "30%",
+    marginRight: "auto",
+    marginLeft: "auto"
+  },
+  postContainer: {
+    flex: 1,
+    backgroundColor: "rgb(137, 87, 188)"
+  },
+  textInputContainer: {
+    flex: 1,
+    alignItems: "center",
+    flexDirection: "column",
+    justifyContent: "flex-start"
+  },
+  dropdownContainer: {
+    marginBottom: 0,
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "flex-end"
+  },
   textInput: {
     color: "purple",
     backgroundColor: "whitesmoke",

@@ -1,7 +1,7 @@
 import React from "react";
 import Amplify, { Auth } from "aws-amplify";
 import configAWS from "../configAWS";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Image } from "react-native";
 import {
   Body,
   Title,
@@ -35,10 +35,10 @@ class LoginScreen extends React.Component {
   }
   render() {
     return (
-      <Container>
+      <Container style={{ backgroundColor: "whitesmoke" }}>
         <Header span>
           <Body style={{ alignItems: "center" }}>
-            <Title>Login</Title>
+            <Title>Footprints</Title>
           </Body>
         </Header>
         <Content>
@@ -68,14 +68,22 @@ class LoginScreen extends React.Component {
               />
             </Item>
           </Form>
-          <Container style={{ paddingRight: "10%", paddingLeft: "10%" }}>
+
+          <Container
+            style={{
+              paddingRight: "10%",
+              paddingLeft: "10%",
+              alignItems: "center"
+            }}
+          >
             <Button
               block
-              style={{ backgroundColor: "purple" }}
+              style={{ backgroundColor: "rgb(137, 87, 188)" }}
               onPress={this.handleSubmit}
             >
-              <Text>Sign in</Text>
+              <Text>Log in</Text>
             </Button>
+            <Image source={require("../data/footprints(2).png")} />
           </Container>
         </Content>
       </Container>
