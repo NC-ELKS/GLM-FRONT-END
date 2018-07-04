@@ -9,7 +9,7 @@ import HomeScreen from "./Components/HomeScreen";
 import LoginScreen from "./Components/LoginScreen";
 
 const NavigationApp = createStackNavigator({
-  // Login: { screen: LoginScreen },
+  Login: { screen: LoginScreen },
   Home: { screen: HomeScreen },
   Read: { screen: ReadScreen },
   Post: { screen: PostScreen },
