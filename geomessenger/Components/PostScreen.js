@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet } from "react-native";
+import { Icon } from "react-native-elements";
 import * as api from "../api";
 import {
   Text,
@@ -39,40 +40,46 @@ class PostScreen extends React.Component {
           </Body>
         </Header>
         <Content>
-          <Form>
-            <Item picker />
-            <Picker
-              mode="dropdown"
-              style={{ width: undefined }}
-              placeholder="Select friend"
-              placeholderStyle={{ color: "#bfc6ea" }}
-              placeholderIconColor="#007aff"
-              selectedValue={this.state.recipient}
-              onValueChange={recipient => {
-                this.setState({ recipient });
-              }}
-            >
-              {friends.map((friend, i) => {
-                return <Picker.Item label={friend} value={friend} key={i} />;
-              })}
-            </Picker>
-          </Form>
+          <Item picker />
+          <Picker
+            mode="dropdown"
+            style={{ width: undefined }}
+            placeholder="Select friend"
+            placeholderStyle={{ color: "#bfc6ea" }}
+            placeholderIconColor="#007aff"
+            selectedValue={this.state.recipient}
+            onValueChange={value => {
+              this.setState({
+                recipient: value
+              });
+            }}
+          >
+            {friends.map((friend, i) => {
+              return <Picker.Item label={friend} value={friend} key={i} />;
+            })}
+          </Picker>
+
           <Item floatingLabel>
             <Label>Enter your message here!</Label>
-            <InputGroup borderType="regular">
-              <Input
-                onChangeText={message => this.setState({ message })}
-                value={this.state.message}
-              />
-            </InputGroup>
+            <Input
+              onChangeText={message =>
+                this.setState({
+                  message
+                })
+              }
+              value={this.state.message}
+            />
           </Item>
-          <Button
-            block
-            style={{ backgroundColor: "rgb(137, 87, 188)" }}
-            onPress={this.submitMessage}
-          >
-            <Text>Send!</Text>
-          </Button>
+
+          <Container>
+            <Button
+              block
+              style={{ backgroundColor: "rgb(137, 87, 188)" }}
+              onPress={this.submitMessage}
+            >
+              <Text>Send!</Text>
+            </Button>
+          </Container>
         </Content>
       </Container>
     );
@@ -90,23 +97,21 @@ class PostScreen extends React.Component {
       };
       this.setState({ currentPosition: newPosition });
     });
-    try {
-      const user = await api.getUser("KKDavidson");
-      const { Items } = await api.fetchMessages("Seth20");
-      this.setState({ messages: Items, user });
-    } catch (err) {
-      console.log(err);
-    }
   };
+
   componentWillUnmount() {
     navigator.geolocation.clearWatch(this.watchID);
   }
 
   submitMessage = async () => {
+    console.log("HERE");
+    console.log(this.state.recipient, "***");
+    console.log(this.state.message, "MESSAGE");
+
     const latitude = this.state.currentPosition.latitude;
     const longitude = this.state.currentPosition.longitude;
     try {
-      const data = await api.postMessage(
+      await api.postMessage(
         this.state.message,
         this.state.recipient,
         "KKDavidson",
@@ -118,7 +123,7 @@ class PostScreen extends React.Component {
         recipient: ""
       });
     } catch (err) {
-      console.log(err);
+      alert(err);
     }
   };
 }

@@ -36,11 +36,6 @@ class LoginScreen extends React.Component {
   render() {
     return (
       <Container style={{ backgroundColor: "whitesmoke" }}>
-        <Header span>
-          <Body style={{ alignItems: "center" }}>
-            <Title>Footprints</Title>
-          </Body>
-        </Header>
         <Content>
           <Form style={{ paddingBottom: "10%" }}>
             <Item floatingLabel>
@@ -81,9 +76,12 @@ class LoginScreen extends React.Component {
               style={{ backgroundColor: "rgb(137, 87, 188)" }}
               onPress={this.handleSubmit}
             >
-              <Text>Log in</Text>
+              <Text>Login</Text>
             </Button>
-            <Image source={require("../data/footprints(2).png")} />
+            <Text />
+            <Text />
+            <Text />
+            <Image source={require("../data/footprints(1).png")} />
           </Container>
         </Content>
       </Container>
@@ -102,7 +100,5 @@ class LoginScreen extends React.Component {
     }
   };
 }
-
-const styles = StyleSheet.create({});
 
 export default LoginScreen;

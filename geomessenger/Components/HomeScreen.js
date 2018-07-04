@@ -1,8 +1,9 @@
 import React from "react";
-import { Image, Dimensions } from "react-native";
+import { Image, Dimensions, TouchableOpacity } from "react-native";
 
 import * as api from "../api";
 import {
+  Text,
   Container,
   Content,
   Footer,
@@ -38,9 +39,11 @@ class HomeScreen extends React.Component {
           backgroundColor: "whitesmoke"
         }}
       >
-        <Content>
-          <Image source={require("../data/footprints(1).png")} />
-        </Content>
+        <Image
+          style={{ marginTop: "20%" }}
+          source={require("../data/footprints(4).png")}
+        />
+        <Content />
         <Footer>
           <FooterTab>
             <Button>
@@ -53,6 +56,7 @@ class HomeScreen extends React.Component {
                 name="markunread"
                 accessibilityLabel="Read your messages"
               />
+              <Text>Read</Text>
             </Button>
             <Button>
               <Icon
@@ -66,6 +70,7 @@ class HomeScreen extends React.Component {
                 type="Entypo"
                 accessibilityLabel="Post a message"
               />
+              <Text>Post</Text>
             </Button>
             <Button>
               <Icon
@@ -79,6 +84,7 @@ class HomeScreen extends React.Component {
                 type="FontAwesome"
                 accessibilityLabel="Go to the map"
               />
+              <Text>Map</Text>
             </Button>
           </FooterTab>
         </Footer>
