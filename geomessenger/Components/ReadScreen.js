@@ -4,6 +4,7 @@ import SpeechBubble from "react-native-speech-bubble";
 import dayjs from "dayjs";
 import { Camera, Permissions, Expo } from "expo";
 import * as api from "../api";
+import { Badge } from "react-native-elements";
 
 class ReadScreen extends Component {
   state = {
@@ -79,83 +80,73 @@ class ReadScreen extends Component {
       }
 
       return (
-        <View style={{ flex: 1 }}>
-          <Camera style={{ flex: 1 }} type={this.state.type}>
-            <View style={styles.sentenceContainer}>
-              <Text style={styles.sender}>
-                {this.state.messagesInRadius[0].msgPoster}
+        <Camera
+          style={{ flex: 1, flexDirection: "column" }}
+          type={this.state.type}
+        >
+          <View style={styles.sentenceContainer}>
+            <Badge containerStyle={{ opacity: 0.5 }}>
+              <View style={styles.bubbleContainer}>
+                <SpeechBubble
+                  speechBubbleActiveOpacity={0.5}
+                  speeches={[this.state.messagesInRadius[0].content]}
+                  hideIcons={true}
+                />
+              </View>
+              <Text style={{ color: "white" }}>
+                {this.state.messagesInRadius[0].msgPoster} -{" "}
+                {dayjs(this.state.messagesInRadius[0].timestamp).format(
+                  "D MMM YYYY ( h:m a )"
+                )}
               </Text>
+            </Badge>
+          </View>
 
-              <Text style={styles.sentence}>left a message for you</Text>
-            </View>
-            <View style={styles.bubbleContainer}>
-              <SpeechBubble
-                speeches={[this.state.messagesInRadius[0].content]}
-                hideIcons={true}
-              />
-            </View>
-            <Text>
-              {dayjs(this.state.messagesInRadius[0].timestamp).format(
-                "D MMM YYYY - h:m a"
-              )}
-            </Text>
-            <View
+          <Text />
+          <View
+            style={{
+              flex: 1,
+              backgroundColor: "transparent",
+              flexDirection: "row"
+            }}
+          >
+            <TouchableOpacity
               style={{
-                flex: 1,
-                backgroundColor: "transparent",
-                flexDirection: "row"
+                flex: 0.1,
+                alignSelf: "flex-end",
+                alignItems: "center"
+              }}
+              onPress={() => {
+                this.setState({
+                  type:
+                    this.state.type === Camera.Constants.Type.back
+                      ? Camera.Constants.Type.front
+                      : Camera.Constants.Type.back
+                });
               }}
             >
-              <TouchableOpacity
-                style={{
-                  flex: 0.1,
-                  alignSelf: "flex-end",
-                  alignItems: "center"
-                }}
-                onPress={() => {
-                  this.setState({
-                    type:
-                      this.state.type === Camera.Constants.Type.back
-                        ? Camera.Constants.Type.front
-                        : Camera.Constants.Type.back
-                  });
-                }}
-              >
-                <Text
-                  style={{ fontSize: 18, marginBottom: 10, color: "white" }}
-                >
-                  {" "}
-                  Flip{" "}
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </Camera>
-        </View>
+              <Text style={{ fontSize: 18, marginBottom: 10, color: "white" }}>
+                Flip
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </Camera>
       );
     }
   }
 }
 
 const styles = StyleSheet.create({
-  messageContainer: {
-    flex: 1,
-    justifyContent: "center",
-    backgroundColor: "whitesmoke"
-  },
   senderContainer: {
     alignItems: "flex-start",
-    marginLeft: "10%"
+    marginLeft: "10%",
+    paddingBottom: "60%",
+    backgroundColor: "red"
   },
-  sentenceContainer: {
-    alignItems: "flex-start",
-    marginLeft: "10%"
-  },
-  dateContainer: {
-    alignItems: "flex-end",
-    marginRight: "10%"
-  },
+
   sender: {
-    fontSize: 25
+    fontSize: 25,
+    backgroundColor: "red"
   }
 });
 
