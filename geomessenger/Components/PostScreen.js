@@ -1,6 +1,7 @@
 import React from "react";
-import { StyleSheet } from "react-native";
-import { Icon } from "react-native-elements";
+import { StyleSheet, Image } from "react-native";
+// import { Icon } from "react-native-elements";
+import Icon from "react-native-vector-icons/Entypo";
 import * as api from "../api";
 import {
   Text,
@@ -33,25 +34,24 @@ class PostScreen extends React.Component {
   render() {
     const friends = this.props.navigation.state.params.user.Items[0].friends;
     return (
-      <Container>
-        <Header>
+      <Container style={{ flex: 1 }}>
+        {/* <Header>
           <Body style={{ alignItems: "center" }}>
             <Title>Post</Title>
           </Body>
-        </Header>
+        </Header> */}
         <Content>
           <Item picker />
           <Picker
             mode="dropdown"
+            iosIcon={<Icon name="select-arrows" />}
             style={{ width: undefined }}
             placeholder="Select friend"
             placeholderStyle={{ color: "#bfc6ea" }}
             placeholderIconColor="#007aff"
             selectedValue={this.state.recipient}
             onValueChange={value => {
-              this.setState({
-                recipient: value
-              });
+              this.setState({ recipient: value });
             }}
           >
             {friends.map((friend, i) => {
@@ -71,7 +71,14 @@ class PostScreen extends React.Component {
             />
           </Item>
 
-          <Container>
+          <Container
+            style={{
+              marginTop: "20%",
+              paddingRight: "10%",
+              paddingLeft: "10%",
+              alignItems: "center"
+            }}
+          >
             <Button
               block
               style={{ backgroundColor: "rgb(137, 87, 188)" }}
@@ -79,6 +86,7 @@ class PostScreen extends React.Component {
             >
               <Text>Send!</Text>
             </Button>
+            <Image source={require("../data/footprints(2).png")} />
           </Container>
         </Content>
       </Container>

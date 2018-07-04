@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { View, Text, Button, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  Button,
+  StyleSheet,
+  TouchableOpacity,
+  Image
+} from "react-native";
 import SpeechBubble from "react-native-speech-bubble";
 import dayjs from "dayjs";
 import { Camera, Permissions, Expo } from "expo";
@@ -62,7 +69,18 @@ class ReadScreen extends Component {
     const { hasCameraPermission } = this.state;
 
     if (this.state.messagesInRadius.length === 0)
-      return <Text>Move closer to see your message!</Text>;
+      return (
+        <View
+          style={{
+            flex: 1,
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center"
+          }}
+        >
+          <Image source={require("../data/footprints(5).png")} />
+        </View>
+      );
 
     if (hasCameraPermission === null) {
       return <View />;

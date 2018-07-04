@@ -144,8 +144,8 @@ const styles = StyleSheet.create({
   },
 
   readMessageMarker: {
-    height: 8,
-    width: 8,
+    height: 7,
+    width: 7,
     backgroundColor: "rgba(255, 128, 0, 0.3)",
     borderRadius: 4
   },
@@ -166,8 +166,8 @@ const styles = StyleSheet.create({
   },
 
   readRing: {
-    width: 24,
-    height: 24,
+    width: 16,
+    height: 16,
     borderRadius: 12,
     backgroundColor: "rgba(255, 128, 0, 0.3)",
     position: "absolute",
