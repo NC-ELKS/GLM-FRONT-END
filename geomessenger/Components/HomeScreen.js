@@ -1,7 +1,16 @@
 import React from "react";
 import { StyleSheet, Text, View, Image, Dimensions } from "react-native";
-import { Icon } from "react-native-elements";
+
 import * as api from "../api";
+import {
+  Container,
+  Header,
+  Content,
+  Footer,
+  FooterTab,
+  Button,
+  Icon
+} from "native-base";
 
 const LATITUDE_DELTA = 0.00043;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
@@ -21,47 +30,50 @@ class HomeScreen extends React.Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
-      <View style={styles.homeContainer}>
-        <Image style={styles.image} source={require("../data/elk.png")} />
-        <View style={styles.bottomNav}>
-          <Icon
-            style={styles.navIcon}
-            size={48}
-            onPress={() => navigate("Read", { messages: this.state.messages })}
-            type="material-icons"
-            name="markunread"
-            color="whitesmoke"
-            accessibilityLabel="Read your messages"
-          />
-          <Icon
-            style={styles.navIcon}
-            size={48}
-            onPress={() =>
-              navigate("Post", {
-                user: this.state.user
-              })
-            }
-            name="pencil"
-            type="entypo"
-            color="whitesmoke"
-            accessibilityLabel="Post a message"
-          />
-
-          <Icon
-            style={styles.navIcon}
-            size={48}
-            onPress={() =>
-              navigate("Map", {
-                messages: this.state.messages
-              })
-            }
-            name="map-marker"
-            type="font-awesome"
-            color="whitesmoke"
-            accessibilityLabel="Go to the map"
-          />
-        </View>
-      </View>
+      <Container style={{ flex: 1 }}>
+        <Content />
+        <Footer>
+          <FooterTab>
+            <Button>
+              <Icon
+                style={{ color: "purple" }}
+                onPress={() =>
+                  navigate("Read", { messages: this.state.messages })
+                }
+                type="MaterialIcons"
+                name="markunread"
+                accessibilityLabel="Read your messages"
+              />
+            </Button>
+            <Button>
+              <Icon
+                style={{ color: "purple" }}
+                onPress={() =>
+                  navigate("Post", {
+                    user: this.state.user
+                  })
+                }
+                name="pencil"
+                type="Entypo"
+                accessibilityLabel="Post a message"
+              />
+            </Button>
+            <Button>
+              <Icon
+                style={{ color: "purple" }}
+                onPress={() =>
+                  navigate("Map", {
+                    messages: this.state.messages
+                  })
+                }
+                name="map-marker"
+                type="FontAwesome"
+                accessibilityLabel="Go to the map"
+              />
+            </Button>
+          </FooterTab>
+        </Footer>
+      </Container>
     );
   }
 
