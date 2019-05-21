@@ -25,6 +25,9 @@
     "axios": "^0.18.0",
     "dayjs": "^1.7.0",
     "expo": "^27.0.1",
+    "extend": "^3.0.2",
+    "lodash": "^4.17.11",
+    "morgan": ">=1.9.1",
     "native-base": "^2.6.1",
     "react": "16.3.1",
     "react-devtools": "^3.2.3",
@@ -35,7 +38,6 @@
     "react-native-modal-dropdown": "^0.6.2",
     "react-native-simple-login": "^1.1.0",
     "react-native-speech-bubble": "^0.4.1",
-    "react-navigation": "^2.5.3",
-    "morgan": ">=1.9.1"
+    "react-navigation": "^2.5.3"
   }
 }
