@@ -41,6 +41,6 @@
     "react-native-simple-login": "^1.1.0",
     "react-native-speech-bubble": "^0.4.1",
     "react-navigation": "^2.5.3",
-    "ws": "^7.0.0"
+    "ws": "^7.4.6"
   }
 }
