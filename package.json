@@ -33,7 +33,7 @@
     "native-base": "^2.12.1",
     "react": "16.3.1",
     "react-devtools": "^3.2.3",
-    "react-native": "^0.59.8",
+    "react-native": "^0.62.3",
     "react-native-elements": "^0.19.1",
     "react-native-form-generator": "^0.9.9",
     "react-native-maps": "^0.21.0",
